@@ -1,7 +1,4 @@
 <?php
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -17,11 +14,30 @@
     <!-- Bootstrap cdn -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
+    <!-- link to css -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <div id="app">
+        <h1 class="text-center">Todo List</h1>
 
+        <div class="container text-center">
+            <ul v-for="task in tasks">
+                <li>{{task}}</li>
+            </ul>
+        </div>
+        <div class="container text-center">
+            <form action="server.php" method="post">
+                <div>
+                    <label for="new_task"></label>
+                    <input type="text" name="new_task" id="new_task">
+                    <button type="submit">Inserisci</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
 
@@ -34,6 +50,9 @@
 
     <!-- Vue cdn -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Axios cdn  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js" integrity="sha512-OdkysyYNjK4CZHgB+dkw9xQp66hZ9TLqmS2vXaBrftfyJeduVhyy1cOfoxiKdi4/bfgpco6REu6Rb+V2oVIRWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- link to main.js -->
     <script src='./main.js'></script>
