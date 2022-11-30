@@ -15,15 +15,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <!-- link to css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
+<body class="d-flex flex-column align-items-center">
 
     <div id="app">
         <h1 class="text-center">Todo List</h1>
 
-        <div class="container text-center">
+        <div class="container tasks rounded-2">
             <ul v-for="task in tasks">
                 <li>{{task}}</li>
             </ul>
@@ -32,8 +32,8 @@
             <form action="server.php" method="post">
                 <div>
                     <label for="new_task"></label>
-                    <input type="text" name="new_task" id="new_task">
-                    <button type="submit">Inserisci</button>
+                    <input type="text" name="new_task" id="new_task" placeholder="Inserisci elemento...">
+                    <button type="submit" class="btn btn-primary ms-3">Inserisci</button>
                 </div>
             </form>
         </div>
