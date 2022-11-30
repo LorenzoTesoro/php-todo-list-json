@@ -17,7 +17,7 @@ createApp({
             }).catch(err =>{
                 console.log(err.message);
             })
-        }
+        },
     },
     mounted(){
         this.callApi(this.api_url);
