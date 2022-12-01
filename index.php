@@ -25,19 +25,23 @@
     <div id="app">
         <h1 class="text-center">Todo List</h1>
 
-        <div class="container tasks rounded-2">
-            <ul v-for="task in tasks">
-                <li>{{task}}</li>
+
+        <div class="container tasks rounded-2" v-if="tasks.length">
+            <ul>
+                <li v-for="task in tasks">{{task.title}}</li>
             </ul>
         </div>
+        <div v-else>
+            <p>No tasks</p>
+        </div>
         <div class="container text-center">
-            <form action="server.php" method="post">
-                <div>
+            <div>
+                <div action="read-tasks.php" method="post">
                     <label for="new_task"></label>
-                    <input type="text" name="new_task" id="new_task" placeholder="Inserisci elemento...">
-                    <button type="submit" class="btn btn-primary ms-3">Inserisci</button>
+                    <input type="text" name="new_task" id="new_task" placeholder="Inserisci elemento..." v-model='newTask' @keyup.enter="saveTask">
+                    <button type="submit" class="btn btn-primary ms-3" @click="saveTask">Inserisci</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
