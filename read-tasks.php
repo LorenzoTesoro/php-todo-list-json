@@ -1,9 +1,7 @@
 <?php
+// take data from json file
+$tasks = file_get_contents('tasks.json');
 
-$string = file_get_contents('list.json'); // prendo il file json
+header('Content-Type:application/json');
 
-$tasks = json_decode($string, true); // traduco in php il file json = array php
-
-header('Content-Type: application/json');
-
-echo json_encode($tasks); // traduco da php a json in modo tale che i dati possano essere "consumati" da vue.js
+echo $tasks;

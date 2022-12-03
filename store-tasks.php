@@ -1,27 +1,27 @@
 <?php
 
-// check if the tasks is not null
-if (isset($_POST['title'])) {
-    // $task_title = $_POST['title']; // salvo la task
+require __DIR__ . './functions.php';
 
-    // create a new task array
-    $task = [
+if (isset($_POST['title'])) {
+
+    // create a new task as an associative array
+    $new_task = [
         'title' => $_POST['title'],
-        'done' => false
+        'done' => 'false'
     ];
 
-    // read the json file and return it as ana assoc array
-    $tasks_json = file_get_contents(('list.json'));
-    $tasks_array = json_decode($tasks_json, true);
+    // read json file and convert it in assoc array
+    $tasks = read_data('tasks.json');
 
-    // push the new task in the task array
-    array_unshift($tasks_array, $task);
-    // encode array in json
-    $tasks_json = json_encode($tasks_array);
+    // push the new task into array
+    array_push($tasks, $new_task);
 
-    // update the json file using file_put_contents
-    file_put_contents('list.json', $tasks_json);
+    // transform the tasks array into a json and save
+    $tasks_json = tranform_array_to_json_and_save($tasks, 'tasks.json');
 
-    // echo json file
+    header("Content-Type: application/json");
+    // return json file updated
     echo $tasks_json;
+} else {
+    echo 'Error';
 }
