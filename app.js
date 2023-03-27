@@ -1,75 +1,86 @@
-const { createApp } = Vue
+const { createApp } = Vue;
 
-  createApp({
-    data() {
-      return {
-        api_url: 'read-tasks.php',
-        tasks:[],
-        newTask:''
-      }
+createApp({
+  data() {
+    return {
+      api_url: "read-tasks.php",
+      tasks: [],
+      newTask: "",
+    };
+  },
+  methods: {
+    readTasks(url) {
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response.data);
+          this.tasks = response.data;
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     },
-    methods:{
-        readTasks(url){
-            axios.get(url).then(response =>{
-                console.log(response.data)
-                this.tasks = response.data
-                console.log(tasks);
-            }).catch(err =>{
-                console.log(err.message);
-            })
-        },
-        saveTask(){
-            console.log('saving');
+    saveTask() {
+      const data = {
+        title: this.newTask,
+      };
 
-            const data = {
-                "title": this.newTask
-            }
-
-            axios.post('store-tasks.php', data, {headers: {
-                'Content-Type': 'multipart/form-data'
-            }}).then(response =>{
-                tasks = response.data
-                this.newTask = '' // empty input
-            }).catch(err => {
-                console.log(err.message);
-            })
-        },
-        updateTask(index) {
-            console.log('updating...');
-
-            const data = {
-              'task_index': index,
-              'done': true
-            }
-    
-            axios
-              .post('update-tasks.php', data, { headers: { "Content-Type": 'multipart/form-data' } })
-              .then(response => {
-                console.log(response);
-                this.tasks = response.data
-              })
-              .catch(err => {
-                console.error(err.message);
-              })
-        },
-        deleteTask(index){
-          console.log('deleting...', index);
-          const data = {
-            'task_index': index
-          }
-  
-          axios
-            .post('delete-tasks.php', data, { headers: { "Content-Type": "multipart/form-data" } })
-            .then(response => {
-              console.log(response);
-              this.tasks = response.data
-            })
-            .catch(err => {
-              console.error(err.message);
-            })
-        }
+      axios
+        .post("store-tasks.php", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.tasks = response.data;
+          this.newTask = ""; // empty input
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      this.readTasks(this.api_url);
     },
-    mounted(){
-        this.readTasks(this.api_url);
-    }
-  }).mount('#app')
+    updateTask(index) {
+      console.log("updating...");
+
+      const data = {
+        task_index: index,
+        done: true,
+      };
+
+      axios
+        .post("update-tasks.php", data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => {
+          console.log(response);
+          this.tasks = response.data;
+        })
+        .catch((err) => {
+          console.error(err.message);
+        });
+    },
+    deleteTask(index) {
+      console.log("deleting...", index);
+      const data = {
+        task_index: index,
+      };
+
+      axios
+        .post("delete-tasks.php", data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => {
+          console.log(response);
+          this.tasks = response.data;
+        })
+        .catch((err) => {
+          console.error(err.message);
+        });
+    },
+  },
+  mounted() {
+    this.readTasks(this.api_url);
+  },
+}).mount("#app");
